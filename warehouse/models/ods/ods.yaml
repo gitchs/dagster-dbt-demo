@@ -1,0 +1,51 @@
+sources:
+- name: public
+  schema: public
+  tables:
+  - columns:
+    - description: ''
+      name: id
+    description: ''
+    name: t
+- name: ods
+  schema: ods
+  tables:
+  - columns:
+    - description: 交易系统用户ID
+      name: id
+    - description: 名
+      name: firstname
+    - description: 姓
+      name: lastname
+    - description: 手机号密文
+      name: phone_ciphertext
+    - description: 邮件密文
+      name: email_ciphertext
+    - description: 注册时间
+      name: signup_time
+    - description: 性别, 0/1 ==> 女/男
+      name: gender
+    - description: 出生日期
+      name: birthday
+    description: 交易系统用户表
+    name: users
+  - columns:
+    - description: 交易订单ID
+      name: id
+    - description: 发起交易订单用户ID
+      name: user_id
+    - description: 订单交易快照
+      name: goods_snapshot
+    - description: 订单交易价格
+      name: price
+    - description: ''
+      name: coupon
+    - description: 订单交易状态, 0未付款/1已付款/2已发货/3已签收/4确认收货/5退款
+      name: status
+    - description: ''
+      name: submit_time
+    - description: ''
+      name: pay_time
+    description: 业务订单表
+    name: orders
+version: 2

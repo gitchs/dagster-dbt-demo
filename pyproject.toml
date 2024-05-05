@@ -6,8 +6,18 @@ authors = ["tiny <tiny.chen@protonbase.io>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = ">=3.9,<3.13"
+dbt = "^1.0.0.37.10"
+dagster-dbt = "^0.23.2"
+dagster-webserver = "^1.7.2"
+dagster-postgres = "^0.23.2"
+dbt-postgres = "^1.7.13"
 
+
+[[tool.poetry.source]]
+name = "tsinghua"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+priority = "primary"
 
 [build-system]
 requires = ["poetry-core"]
