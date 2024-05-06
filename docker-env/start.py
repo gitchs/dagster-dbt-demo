@@ -4,9 +4,7 @@ from pathlib import Path
 from subprocess import Popen
 
 
-THIS_DIR = Path(__file__).parent
-
-DBT_TARGET_ROOT = THIS_DIR.parent.joinpath('warehouse', 'target').absolute()
+DBT_TARGET_ROOT = Path('/workspace').joinpath('warehouse', 'target').absolute()
 
 _DEFAULT_PATH = '/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 
