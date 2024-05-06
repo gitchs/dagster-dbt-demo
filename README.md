@@ -84,9 +84,7 @@ WHERE submit_time BETWEEN '2024-01-01 00:00:00' AND '2024-12-31 23:59:59'
 
 ## dagster演示内容
 ### dagster Definitions
-```python
-
-```
+1. 参考文件`dagsterproject/__init__.py`。
 
 ### global lineage
 

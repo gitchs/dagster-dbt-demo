@@ -10,7 +10,7 @@ from dagster import AssetExecutionContext
 from dagster import DefaultScheduleStatus
 from dagster_dbt import DbtCliResource
 from dagster_dbt import dbt_assets
-from dagster_dbt import build_schedule_from_dbt_selection, build_dbt_asset_selection
+from dagster_dbt import build_schedule_from_dbt_selection
 
 log = get_dagster_logger()
 
@@ -74,9 +74,9 @@ dbt_daily_schedule = build_schedule_from_dbt_selection(
     [warehouse_assets],
     job_name="dbt_daily_materialized",
     cron_schedule="0 1 * * *",  # At 01:00 everyday
-    dbt_select="tag:daily",
+    dbt_select="tag:daily",     # 根据tag选择dbt模型
     default_status=DefaultScheduleStatus.RUNNING,
-    execution_timezone='Asia/Shanghai',
+    execution_timezone='Asia/Shanghai',  # 根据需要设置时区
 )
 
 
