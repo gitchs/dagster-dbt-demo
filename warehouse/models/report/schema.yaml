@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: revenue2024
+  - name: report_revenue2024
     description: |
       2024全年营收，口径如下
         1. 时间范围: 2024-01-01 00:00:00 ~ 2024-12-31 23:59:59

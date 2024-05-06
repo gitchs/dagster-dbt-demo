@@ -1,12 +1,4 @@
 sources:
-- name: public
-  schema: public
-  tables:
-  - columns:
-    - description: ''
-      name: id
-    description: ''
-    name: t
 - name: ods
   schema: ods
   tables:
@@ -38,13 +30,13 @@ sources:
       name: goods_snapshot
     - description: 订单交易价格
       name: price
-    - description: ''
+    - description: '订单补贴价格'
       name: coupon
     - description: 订单交易状态, 0未付款/1已付款/2已发货/3已签收/4确认收货/5退款
       name: status
-    - description: ''
+    - description: '订单提交时间'
       name: submit_time
-    - description: ''
+    - description: '订单支付时间'
       name: pay_time
     description: 业务订单表
     name: orders

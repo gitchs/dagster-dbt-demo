@@ -3,7 +3,11 @@
 schedules/
 storage/
 .telemetry/
+.nux
 history/
+*.pdf
+docker-poetry-cache/
+vscode-server/
 # Created by https://www.toptal.com/developers/gitignore/api/vim,visualstudiocode,macos,linux,windows,python,java,gradle,maven,goland,c++,cmake,ninja
 # Edit at https://www.toptal.com/developers/gitignore?templates=vim,visualstudiocode,macos,linux,windows,python,java,gradle,maven,goland,c++,cmake,ninja
 

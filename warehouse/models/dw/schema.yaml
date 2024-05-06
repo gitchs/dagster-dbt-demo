@@ -1,16 +1,16 @@
 version: 2
 
 models:
-  - name: order_with_user_profile
+  - name: dw_orders_with_user_profile
     description: |
       订单宽表，订单用户ID关联用户信息，在最后追加以下列
         1. gender，订单用户性别
         1. age，订单用户当前年龄
         1. submit_age，订单用户提交订单时的年龄
-  - name: users
+  - name: dw_users
     description: |
       格式化用户信息，在最后追加以下列
         1. age, 根据当前时间计算用户年龄
-  - name: paid_orders
+  - name: dw_paid_orders
     description: |
       已支付订单，**退款订单会自动剔除掉**。

@@ -1,5 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS ods;
-DROP TABLE IF EXISTS ods.users;
+DROP TABLE IF EXISTS ods.users CASCADE;
 CREATE TABLE IF NOT EXISTS ods.users(
     id BIGSERIAL NOT NULL PRIMARY KEY
     ,firstname VARCHAR(64) NULL
@@ -27,7 +27,7 @@ INSERT INTO ods.users(id, firstname, lastname, phone_ciphertext, email_ciphertex
 ,(4, 'f3', 'l3', 'pc3', 'ec3', '2014-04-06 07:08:09', false, '1970-08-04')
 ;
 
-DROP TABLE IF EXISTS ods.orders;
+DROP TABLE IF EXISTS ods.orders CASCADE;
 CREATE TABLE IF NOT EXISTS ods.orders(
     id BIGSERIAL NOT NULL PRIMARY KEY
     ,user_id BIGINT NOT NULL
@@ -44,8 +44,10 @@ COMMENT ON COLUMN ods.orders.id IS '交易订单ID';
 COMMENT ON COLUMN ods.orders.user_id IS '发起交易订单用户ID';
 COMMENT ON COLUMN ods.orders.goods_snapshot IS '订单交易快照';
 COMMENT ON COLUMN ods.orders.price IS '订单交易价格';
-COMMENT ON COLUMN ods.orders.coupou IS '订单交易补贴';
+COMMENT ON COLUMN ods.orders.coupon IS '订单交易补贴';
 COMMENT ON COLUMN ods.orders.status IS '订单交易状态, 0未付款/1已付款/2已发货/3已签收/4确认收货/5退款';
+COMMENT ON COLUMN ods.orders.submit_time IS '订单提交时间';
+COMMENT ON COLUMN ods.orders.pay_time IS '订单支付时间';
 
 
 INSERT INTO ods.orders(user_id, goods_snapshot, price, coupon, status, submit_time, pay_time) VALUES
