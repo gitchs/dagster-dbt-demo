@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  dagsterdbt:
+    image: 'dagsterdbt:latest'
+    restart: always
+    ports:
+      - 20022:22
+    volumes:
+      - './volumes/vscode-server:/root/.vscode-server/'
+      - './volumes/docker-poetry-cache:/root/.cache/pypoetry'
+      - './:/workspace'
+    working_dir: /workspace
+    environment:
+      - SSH_PUBLIC_KEY= # ssh into container
+
+  postgresql:
+    image: postgres:14
+    restart: always
+    environment:
+      - PGDATA=/var/lib/postgresql/data
+      - POSTGRES_PASSWORD=$PGPASSWORD
+    volumes:
+      - ./volumes/pgdata:/var/lib/postgresql/data

@@ -1,18 +1,14 @@
 #!/usr/bin/env python3
 import os
-import time
 from pathlib import Path
 from subprocess import Popen
-from http.server import SimpleHTTPRequestHandler
-import socketserver
+
+
+THIS_DIR = Path(__file__).parent
+
+DBT_TARGET_ROOT = THIS_DIR.parent.joinpath('warehouse', 'target').absolute()
 
 _DEFAULT_PATH = '/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
-
-
-class CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.directory = '/workspace/warehouse/target/'
 
 
 def check_rc(code: int):
@@ -76,6 +72,13 @@ def start_dagster() -> Popen:
     return child
 
 
+def start_dbt_docs_server() -> Popen:
+    child = Popen([
+        'python3',
+        '-m', 'http.server'
+    ], cwd=str(DBT_TARGET_ROOT))
+    return child
+
 def main():
     init_project()
     init_sshd_authorized()
@@ -83,6 +86,7 @@ def main():
     children = [
         start_sshd(),
         start_dagster(),
+        start_dbt_docs_server(),
     ]
     for child in children:
         child.wait()
