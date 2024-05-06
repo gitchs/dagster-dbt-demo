@@ -55,7 +55,7 @@ def warehouse_assets(context: AssetExecutionContext, dbt: DbtCliResource):
 def dbt_docs_generate(context: AssetExecutionContext):
     dbt = _resource_factory()
     start = time.time()
-    dbt.cli(['docs', 'generate']).wait()
+    dbt.cli(['docs', 'generate'], target_path=DBT_TARGET_DIR).wait()
     duration = time.time() - start
     return MaterializeResult(
         metadata={
