@@ -44,6 +44,7 @@ def init_sshd_authorized() -> int:
     if ssh_public_key:
         with open(ssh_authorized_file, 'a', encoding='utf8') as output:
             output.write(f'# auto import ssh key\n{ssh_public_key}\n')
+        os.chmod(ssh_authorized_file, 0o600)
     return 0
 
 
