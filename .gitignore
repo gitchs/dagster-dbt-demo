@@ -1,5 +1,9 @@
 .vscode
 .idea
+schedules/
+storage/
+.telemetry/
+history/
 # Created by https://www.toptal.com/developers/gitignore/api/vim,visualstudiocode,macos,linux,windows,python,java,gradle,maven,goland,c++,cmake,ninja
 # Edit at https://www.toptal.com/developers/gitignore?templates=vim,visualstudiocode,macos,linux,windows,python,java,gradle,maven,goland,c++,cmake,ninja
 
@@ -215,7 +219,8 @@ replay_pid*
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
