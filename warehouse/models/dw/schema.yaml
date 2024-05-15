@@ -11,6 +11,22 @@ models:
     description: |
       格式化用户信息，在最后追加以下列
         1. age, 根据当前时间计算用户年龄
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null
+      - name: phone_ciphertext
+        tests:
+          - unique
+          - not_null
+      - name: gender
+        tests:
+          - accepted_values: {values: [0, 1]}
   - name: dw_paid_orders
     description: |
       已支付订单，**退款订单会自动剔除掉**。
+    columns:
+      - name: status
+        tests:
+          - accepted_values: {values: [1, 2, 3, 4]}

@@ -1,0 +1,12 @@
+version: 2
+
+seeds:
+  - name: goods
+    schema: dim
+    description: '商品维度表'
+    columns:
+      - name: id
+        type: bigint
+        tests:
+          - unique
+          - not_null
