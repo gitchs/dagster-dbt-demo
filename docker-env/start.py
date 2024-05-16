@@ -65,6 +65,7 @@ def start_dagster() -> Popen:
         'dagster',
         'dev',
         '-m', 'dagsterproject',
+        '-m', 'dagster_example',
         '-h', '0.0.0.0'
     ], env=env, cwd=os.getcwd())
     return child
