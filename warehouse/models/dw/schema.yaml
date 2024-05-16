@@ -1,12 +1,6 @@
 version: 2
 
 models:
-  - name: dw_orders_with_user_profile
-    description: |
-      订单宽表，订单用户ID关联用户信息，在最后追加以下列
-        1. gender，订单用户性别
-        1. age，订单用户当前年龄
-        1. submit_age，订单用户提交订单时的年龄
   - name: dw_users
     description: |
       格式化用户信息，在最后追加以下列
@@ -23,10 +17,20 @@ models:
       - name: gender
         tests:
           - accepted_values: {values: [0, 1]}
+
   - name: dw_paid_orders
     description: |
       已支付订单，**退款订单会自动剔除掉**。
     columns:
       - name: status
         tests:
-          - accepted_values: {values: [1, 2, 3, 4]}
+          - between_and: # 执行自定义测试
+              left_bound: 1
+              right_bound: 4
+
+  - name: dw_orders_with_user_profile
+    description: |
+      订单宽表，订单用户ID关联用户信息，在最后追加以下列
+        1. gender，订单用户性别
+        1. age，订单用户当前年龄
+        1. submit_age，订单用户提交订单时的年龄

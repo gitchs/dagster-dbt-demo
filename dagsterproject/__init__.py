@@ -1,19 +1,15 @@
 #!/usr/bin/env python3
 import os
-import time
 from pathlib import Path
-from typing import Optional
-from dagster import asset
+from typing import Optional, List
 from dagster import get_dagster_logger
 from dagster import Definitions
-from dagster import MaterializeResult
 from dagster import AssetExecutionContext
 from dagster import DefaultScheduleStatus
 from dagster import ScheduleDefinition
 from dagster import define_asset_job
 from dagster_dbt import DbtCliResource
 from dagster_dbt import dbt_assets
-from dagster_dbt import build_schedule_from_dbt_selection
 from dagster_dbt import build_dbt_asset_selection
 from dbt.exceptions import EventCompilationError
 
@@ -90,56 +86,44 @@ def build_dbt_schedule_from_tag(
         return None
 
 
-# daily_build_assets = build_dbt_asset_selection(
-#     [warehouse_assets],
-#     dbt_select="tag:daily",
-# )
-#
-# dbt_weekly_schedule = build_schedule_from_dbt_selection(
-#     [warehouse_assets],
-#     job_name="dbt_weekly_models",
-#     cron_schedule="0 1 * * 1",
-#     dbt_select="tag:weekly",
-#     default_status=DefaultScheduleStatus.STOPPED,
-#     execution_timezone='Asia/Shanghai',
-# )
-#
-# dbt_daily_schedule = build_schedule_from_dbt_selection(
-#     [warehouse_assets],
-#     job_name="dbt_daily_materialized",
-#     cron_schedule="0 1 * * *",  # At 01:00 everyday
-#     dbt_select="tag:daily",     # 根据tag选择dbt模型
-#     default_status=DefaultScheduleStatus.RUNNING,
-#     execution_timezone='Asia/Shanghai',  # 根据需要设置时区
-# )
-
-
-all_schedules = list(filter(lambda v: v, [
-    build_dbt_schedule_from_tag(
+def _init_builtin_schedules() -> List[ScheduleDefinition]:
+    daily_builds = build_dbt_schedule_from_tag(
         [warehouse_assets],
         "daily_build",
         "0 1 * * *",
         "tag:daily",
         DEFAULT_TIMEZONE,
         DefaultScheduleStatus.RUNNING,
-    ),
-    build_dbt_schedule_from_tag(
+    )
+    weekly_build = build_dbt_schedule_from_tag(
         [warehouse_assets],
         "weekly_build",
         "0 1 * * 1",
         "tag:weekly",
         DEFAULT_TIMEZONE,
         DefaultScheduleStatus.RUNNING,
-    ),
-    build_dbt_schedule_from_tag(
+    )
+    monthly_build = build_dbt_schedule_from_tag(
         [warehouse_assets],
         "monthly_build",
         "0 1 1 * *",
         "tag:monthly",
         DEFAULT_TIMEZONE,
         DefaultScheduleStatus.RUNNING,
-    ),
-]))
+    )
+    builtin_schedules = []
+    if daily_builds:
+        builtin_schedules.append(daily_builds)
+    if weekly_build:
+        builtin_schedules.append(weekly_build)
+    if monthly_build:
+        builtin_schedules.append(monthly_build)
+    return builtin_schedules
+
+
+all_schedules = []
+
+all_schedules += _init_builtin_schedules()
 
 definition = Definitions(
     assets=all_assets,

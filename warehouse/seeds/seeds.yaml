@@ -2,8 +2,9 @@ version: 2
 
 seeds:
   - name: goods
-    schema: dim
     description: '商品维度表'
+    config:
+      schema: dim
     columns:
       - name: id
         type: bigint
